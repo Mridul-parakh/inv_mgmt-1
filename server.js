@@ -16,6 +16,15 @@ app.prepare().then(() => {
   server.get("/", (req, res) => {
     return app.render(req, res, "/a", req.query);
   });
+
+  // app.post("/ins", upload.none(), (req, res, next) => {
+  //   return app.render(req, res, "/api/inventory", req.query);
+  // });
+
+  server.get("/ins", (req, res) => {
+    return app.render(req, res, "/api/inventory", req.query);
+  });
+
   /**
    * Wrapping express app inside next will allow us to create routes by using
    * express js function inside of the next js build
