@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-
 const InventorySchema = new mongoose.Schema({
   inventory_ID: {
     type: String,
@@ -65,8 +64,5 @@ const InventorySchema = new mongoose.Schema({
   }
 });
 
-module.exports = InventorySchema;
-
-// module.exports =
-// mongoose.models.Inventory ||
-// mongoose.model("Inventory_model", InventorySchema);
+module.exports =
+  mongoose.model("Inventory") || mongoose.model("Inventory", InventorySchema);

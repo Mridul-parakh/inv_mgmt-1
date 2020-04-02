@@ -1,34 +1,32 @@
-import Inventory from "../../models/inventory_model";
+import dbConnect from "../../utils/dbConnect";
+import InventorySchema from "../../models/inventory_model";
+const multer = require("multer");
+const upload = multer({ dest: "invoices_file_dump/" });
 
-export default async (req, res) => {
-  let data = req.body;
-  res.end(data); //garbled headers included in form data req body
-  //code not compiing beyond this point because of headers in req body
-  var Inventory_values = new Inventory({
-    inventory_ID: data.inventory_ID,
-    serial_no: data.serial_no,
-    $push: { type: data.type },
-    $push: { category: data.category },
-    $push: { brand: data.brand },
-    $push: { model: data.model },
-    RAM: data.RAM,
-    Additional_RAM: data.Additional_RAM,
-    DOP: data.DOP,
-    invoice: data.invoice,
-    $push: { status: data.status },
-    assigned_to: data.assigned_to
+const express = require("express");
+
+const bodyParser = require("body-parser");
+var app = express();
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+dbConnect();
+
+export default (req, res) => {
+  console.log("reached the inventory api page");
+  app.post("/ins", (req, res) => {
+    console.log(
+      "=============================================Got body:",
+      req.body
+    );
+    res.sendStatus(200);
   });
-
-  var upsertData = Inventory_values.toObject();
-  delete upsertData._id;
-  await Inventory.updateOne(
-    { _id: Inventory.id },
-    upsertData,
-    { upsert: true },
-    function(err, data) {
-      res.end("Failed :c ", err);
-    }
-  );
+  <>
+    <div>
+      LOOKS LIKE API CALL WAS MADE HMMMMMM
+      {console.log("STUFF ========= ", req, res)}
+    </div>
+  </>;
 };
 
 // export default /*async*/ (req, res) => {
