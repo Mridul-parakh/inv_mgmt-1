@@ -22,7 +22,7 @@ module.exports=passport=>{passport.use(new OutlookStrategy({
     if (profile.Alias)
       user.alias = profile.Alias;
       jwt.decode(SECRET,refreshToken,(err,payload,header)=>{
-        User.findOne({email_id:profile._json.EmailAddress}).lean()
+        User.findOne({email_id:profile._json.EmailAddress.toLowerCase()}).lean()
         .exec(function(err,user){
           if(err){
             console.log(err);
